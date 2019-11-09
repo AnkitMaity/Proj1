@@ -19,7 +19,7 @@ public class Autonomous_Test extends LinearOpMode {
     // todo: write your code here
     // Declare OpMode members.
     public ElapsedTime runtime = new ElapsedTime();
-    /* ashis
+
     public DcMotor Left_Motor_Front;
     public DcMotor Right_Motor_Front;
     public DcMotor Left_Motor_Back;
@@ -27,7 +27,7 @@ public class Autonomous_Test extends LinearOpMode {
     public Servo SideArm;
     
     public double Four_Motor_Speed = .09;
-    ashis */
+    
     private static final String TFOD_MODEL_ASSET = "Skystone.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Stone";
     private static final String LABEL_SECOND_ELEMENT = "SKYSTONE FOUNDDDDDDDDDDDD";
@@ -44,7 +44,7 @@ public class Autonomous_Test extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
        
-/*  ashis nov 6 2019
+
         Right_Motor_Back = hardwareMap.get(DcMotor.class, "bottomright");
         Left_Motor_Back = hardwareMap.get(DcMotor.class, "bottomleft");
         Left_Motor_Front = hardwareMap.get(DcMotor.class, "topleft");
@@ -61,7 +61,7 @@ public class Autonomous_Test extends LinearOpMode {
         Left_Motor_Back.setMode(DcMotor.RunMode.RUN_USING_ENCODERS);
         Right_Motor_Front.setMode(DcMotor.RunMode.RUN_USING_ENCODERS);
         Right_Motor_Back.setMode(DcMotor.RunMode.RUN_USING_ENCODERS);
-         ashis */
+
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
         initVuforia();
@@ -81,13 +81,13 @@ public class Autonomous_Test extends LinearOpMode {
         }
 
         /** Wait for the game to begin */
-        telemetry.addData(">", "Press Play to start op mode vvv");
+        telemetry.addData(">", "Press Play to start op mode ccc");
         telemetry.update();
-        /* ashis
+        
         SideArm.setPosition(0.9);
         
         ForwardDistance(.5, 10);
- ashis */
+ 
         waitForStart();
         if (opModeIsActive()) {
             
@@ -131,7 +131,10 @@ public class Autonomous_Test extends LinearOpMode {
             }
         }
     }
-    private void initVuforia(){
+     /**
+     * Initialize the Vuforia localization engine.
+     */
+    private void initVuforia() {
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
          */
@@ -151,14 +154,14 @@ public class Autonomous_Test extends LinearOpMode {
      */
     private void initTfod() {
         int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
-        "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+            "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
-        //tfodParameters.useObjectTracker = false;
-        tfodParameters.minimumConfidence = 0.6;
+        tfodParameters.minimumConfidence = 0.8;
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_FIRST_ELEMENT, LABEL_SECOND_ELEMENT);
     }
-    /* ashis
+
+
     private void Forward(double power) {
         Left_Motor_Front.setPower(power);
         Left_Motor_Back.setPower(power);
@@ -217,5 +220,5 @@ public class Autonomous_Test extends LinearOpMode {
         Right_Motor_Front.setPower(-power);
         Right_Motor_Back.setPower(power);
     }
-     ashis */
+
 }
