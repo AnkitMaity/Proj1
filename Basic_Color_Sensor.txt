@@ -1,0 +1,46 @@
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.DcMotor;
+
+@Autonomous
+public class Color_Test extends LinearOpMode{
+    ColorSensor color_sensor;
+    public DcMotor Left_Motor_Front;
+    public DcMotor Right_Motor_Front;
+    public DcMotor Left_Motor_Back;
+    public DcMotor Right_Motor_Back;
+    public double Four_Motor_Speed = .65;
+
+    @Override
+    public void runOpMode() throws InterruptedException {
+        telemetry.addData("Status","Ready to Run");
+        telemetry.update();
+
+        Right_Motor_Back = hardwareMap.get(DcMotor.class, "bottomright");
+        Left_Motor_Back = hardwareMap.get(DcMotor.class, "bottomleft");
+        Left_Motor_Front = hardwareMap.get(DcMotor.class, "topleft");
+        Right_Motor_Front = hardwareMap.get(DcMotor.class, "topright");
+        color_sensor = hardwareMap.colorSensor.get("color");
+
+        waitForStart();
+        if (opModeIsActive()) {
+            while (opModeIsActive()) {
+                Right_Motor_Back.setPower(Four_Motor_Speed);
+                Right_Motor_Front.setPower(Four_Motor_Speed);
+                Left_Motor_Back.setPower(Four_Motor_Speed);
+                Left_Motor_Front.setPower(Four_Motor_Speed);
+
+                if (color_sensor.argb() == 0){
+                    Four_Motor_Speed = 0;
+                    Right_Motor_Back.setPower(Four_Motor_Speed);
+                    Right_Motor_Front.setPower(Four_Motor_Speed);
+                    Left_Motor_Back.setPower(Four_Motor_Speed);
+                    Left_Motor_Front.setPower(Four_Motor_Speed);
+                }
+            }
+        }
+    }
+}
